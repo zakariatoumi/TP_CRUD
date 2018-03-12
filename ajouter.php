@@ -3,7 +3,7 @@
 <?php 
 
 require 'db.php';
-$message='';
+$message="";
 
 if (isset($_POST['nom']) && isset($_POST['prenom'])) {
 	$nom=$_POST['nom'];

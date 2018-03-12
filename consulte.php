@@ -1,14 +1,15 @@
 <?php 
-require 'db.php';
-$sql='SELECT * FROM personne';
-$statement = $connection->prepare($sql);
-$statement->execute();
-$personne = $statement->fetchAll(PDO::FETCH_OBJ);
 
+require 'db.php';
+$id=$_GET['id'];
+$sql='SELECT * FROM personne WHERE id=:id';
+$statement = $connection->prepare($sql);
+$statement ->execute([':id'=>$id]);
+$personne=$statement->fetchAll(PDO::FETCH_OBJ);
  ?>
 
 
-<?php require 'headre.php'; ?>
+ <?php require 'headre.php'; ?>
  <div class="container">
  	
  	<div class="card mt-5">
@@ -21,19 +22,14 @@ $personne = $statement->fetchAll(PDO::FETCH_OBJ);
  					<th>ID</th>
  					<th>NOM</th>
  					<th>PRENOM</th>
- 					<th>ACTION</th>
+ 					
  				</tr>
                   <?php foreach ($personne as $per): ?>
  				<tr>
  					<td><?= $per->id; ?></td>
  					<td><?= $per->nom; ?></td>
  					<td><?= $per->prenom; ?></td>
- 					<td>
- 						<a href="modifier.php?id=<?= $per->id ?>" class="btn btn-info">Modifier</a>
-
- 						<a href="supprimer.php?id=<?= $per->id ?>" onclick="return confirm('CONFIRNER')" class="btn btn-danger">Supprimer</a>
- 						<a href="consulte.php?id=<?= $per->id ?>" class="btn btn-success">consulte</a>
- 					</td>
+ 				
  				</tr>
                 <?php endforeach; ?>
  			</table>
